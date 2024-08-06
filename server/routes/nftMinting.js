@@ -1,32 +1,40 @@
 const express = require('express');
-const { TokenCreateTransaction, TokenType, TokenSupplyType } = require("@hashgraph/sdk");
+const { TokenCreateTransaction, TokenType, TokenSupplyType, TokenMintTransaction } = require('@hashgraph/sdk');
 const client = require('../services/hederaClient');
 
 const router = express.Router();
 
-router.post('/mint', async (req, res) => {
+router.post('/mint', async (req, res, next) => {
   try {
     const { name, symbol, metadata } = req.body;
 
-    const transaction = new TokenCreateTransaction()
+    // Create NFT token
+    const createTokenTx = await new TokenCreateTransaction()
       .setTokenName(name)
       .setTokenSymbol(symbol)
       .setTokenType(TokenType.NonFungibleUnique)
-      .setSupplyType(TokenSupplyType.Finite)
-      .setInitialSupply(1)
-      .setMaxSupply(1)
+      .setDecimals(0)
+      .setInitialSupply(0)
       .setTreasuryAccountId(client.operatorAccountId)
-      .setAdminKey(client.publicKey)
+      .setSupplyType(TokenSupplyType.Finite)
+      .setMaxSupply(1)
       .setSupplyKey(client.publicKey)
-      .setTokenMemo(metadata);
+      .freezeWith(client);
 
-    const txResponse = await transaction.execute(client);
-    const receipt = await txResponse.getReceipt(client);
-    const tokenId = receipt.tokenId;
+    const createTokenRx = await (await createTokenTx.execute(client)).getReceipt(client);
+    const tokenId = createTokenRx.tokenId;
 
-    res.json({ tokenId: tokenId.toString() });
+    // Mint NFT
+    const mintTx = await new TokenMintTransaction()
+      .setTokenId(tokenId)
+      .setMetadata([Buffer.from(metadata)])
+      .freezeWith(client);
+
+    const mintRx = await (await mintTx.execute(client)).getReceipt(client);
+
+    res.json({ tokenId: tokenId.toString(), serialNumber: mintRx.serials[0].toString() });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 });
 

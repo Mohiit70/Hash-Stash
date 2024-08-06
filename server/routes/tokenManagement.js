@@ -1,23 +1,32 @@
 const express = require('express');
-const { TokenCreateTransaction } = require("@hashgraph/sdk");
+const { TokenCreateTransaction, TokenType, TokenSupplyType } = require('@hashgraph/sdk');
 const client = require('../services/hederaClient');
 
 const router = express.Router();
 
-router.post('/create', async (req, res) => {
+router.post('/create', async (req, res, next) => {
   try {
     const { name, symbol, initialSupply } = req.body;
-    const transaction = new TokenCreateTransaction()
+
+    const transaction = await new TokenCreateTransaction()
       .setTokenName(name)
       .setTokenSymbol(symbol)
+      .setTokenType(TokenType.FungibleCommon)
+      .setDecimals(0)
       .setInitialSupply(initialSupply)
-      .setTreasuryAccountId(client.operatorAccountId);
-    const txResponse = await transaction.execute(client);
+      .setTreasuryAccountId(client.operatorAccountId)
+      .setSupplyType(TokenSupplyType.Infinite)
+      .setSupplyKey(client.publicKey)
+      .freezeWith(client);
+
+    const signTx = await transaction.sign(client.privateKey);
+    const txResponse = await signTx.execute(client);
     const receipt = await txResponse.getReceipt(client);
     const tokenId = receipt.tokenId;
+
     res.json({ tokenId: tokenId.toString() });
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    next(error);
   }
 });
 
