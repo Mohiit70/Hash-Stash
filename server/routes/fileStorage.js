@@ -1,36 +1,42 @@
 const express = require('express');
-const multer = require('multer');
-const { FileCreateTransaction, FileContentsQuery } = require('@hashgraph/sdk');
-const client = require('../services/hederaClient');
-
+const { Client, FileCreateTransaction, FileContentsQuery } = require('@hashgraph/sdk');
 const router = express.Router();
-const upload = multer({ storage: multer.memoryStorage() });
 
-router.post('/upload', upload.single('file'), async (req, res, next) => {
+router.post('/upload', async (req, res) => {
   try {
-    const fileCreateTx = new FileCreateTransaction()
-      .setContents(req.file.buffer)
-      .setKeys([client.publicKey]);
+    const { fileContents } = req.body;
+    const client = Client.forTestnet();
+    client.setOperator(process.env.HEDERA_ACCOUNT_ID, process.env.HEDERA_PRIVATE_KEY);
 
-    const submitTx = await fileCreateTx.execute(client);
-    const receipt = await submitTx.getReceipt(client);
+    const transaction = new FileCreateTransaction()
+      .setContents(fileContents)
+      .setKeys([client.publicKey])
+      .freezeWith(client);
+
+    const txResponse = await transaction.execute(client);
+    const receipt = await txResponse.getReceipt(client);
     const fileId = receipt.fileId;
 
     res.json({ fileId: fileId.toString() });
   } catch (error) {
-    next(error);
+    res.status(500).json({ error: error.message });
   }
 });
 
-router.get('/:fileId', async (req, res, next) => {
+router.get('/:fileId', async (req, res) => {
   try {
-    const fileContentsQuery = new FileContentsQuery()
-      .setFileId(req.params.fileId);
+    const { fileId } = req.params;
+    const client = Client.forTestnet();
+    client.setOperator(process.env.HEDERA_ACCOUNT_ID, process.env.HEDERA_PRIVATE_KEY);
 
-    const contents = await fileContentsQuery.execute(client);
-    res.send(contents);
+    const query = new FileContentsQuery()
+      .setFileId(fileId);
+
+    const contents = await query.execute(client);
+
+    res.json({ contents: contents.toString() });
   } catch (error) {
-    next(error);
+    res.status(500).json({ error: error.message });
   }
 });
 

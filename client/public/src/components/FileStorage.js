@@ -5,29 +5,48 @@ function FileStorage() {
   const [file, setFile] = useState(null);
   const [fileId, setFileId] = useState('');
   const [result, setResult] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const { client } = useHederaClient();
 
   const handleFileUpload = async (e) => {
     e.preventDefault();
-    if (!file) return;
+    if (!file) {
+      setResult('Please select a file first.');
+      return;
+    }
 
+    setIsLoading(true);
     try {
       const fileCreateTx = await client.uploadFile(file);
       setResult(`File uploaded successfully. File ID: ${fileCreateTx.fileId}`);
     } catch (error) {
       setResult(`Error uploading file: ${error.message}`);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleFileRetrieve = async () => {
-    if (!fileId) return;
+    if (!fileId) {
+      setResult('Please enter a File ID.');
+      return;
+    }
 
+    setIsLoading(true);
     try {
       const fileContents = await client.downloadFile(fileId);
       setResult('File retrieved successfully.');
       // Handle file download here
+      const blob = new Blob([fileContents], { type: 'application/octet-stream' });
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'downloaded-file';
+      a.click();
     } catch (error) {
       setResult(`Error retrieving file: ${error.message}`);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -38,13 +57,14 @@ function FileStorage() {
         <input
           type="file"
           onChange={(e) => setFile(e.target.files[0])}
-          className="mb-2"
+          className="mb-2 p-2 border rounded"
         />
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          disabled={isLoading}
         >
-          Upload
+          {isLoading ? 'Uploading...' : 'Upload'}
         </button>
       </form>
       <div className="mb-4">
@@ -58,8 +78,9 @@ function FileStorage() {
         <button
           onClick={handleFileRetrieve}
           className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mt-2"
+          disabled={isLoading}
         >
-          Retrieve
+          {isLoading ? 'Retrieving...' : 'Retrieve'}
         </button>
       </div>
       <p className="text-gray-700">{result}</p>
