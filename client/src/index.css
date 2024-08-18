@@ -1,7 +1,9 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
-body {
-  font-family: 'GeistSans_3a0388', 'GeistSans_Fallback_3a0388', sans-serif;
+@layer base {
+  body {
+    @apply antialiased;
+  }
 }
