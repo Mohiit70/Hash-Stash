@@ -1,0 +1,41 @@
+/* style.css */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+}
+
+.file-label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.file-input {
+    display: block;
+    margin: 0 auto 10px auto;
+}
+
+.upload-button {
+    display: block;
+    margin: 0 auto;
+    padding: 8px 16px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.upload-button:hover {
+    background-color: #0056b3;
+}
