@@ -1,11 +1,10 @@
 const express = require('express');
 const cors = require('cors');
+const fileUpload = require('express-fileupload');
 const fileStorageRoutes = require('./routes/fileStorage');
 const tokenManagementRoutes = require('./routes/tokenManagement');
 const consensusServiceRoutes = require('./routes/consensusService');
 const smartContractRoutes = require('./routes/smartContract');
-const nftMintingRoutes = require('./routes/nftMinting');
-
 require('dotenv').config();
 
 const app = express();

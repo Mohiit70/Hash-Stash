@@ -8,13 +8,12 @@ export function HederaProvider({ children }) {
 
   useEffect(() => {
     const initClient = async () => {
-      try {
-        const newClient = Client.forTestnet();
-        newClient.setOperator(process.env.REACT_APP_HEDERA_ACCOUNT_ID, process.env.REACT_APP_HEDERA_PRIVATE_KEY);
-        setClient(newClient);
-      } catch (error) {
-        console.error('Error initializing Hedera client:', error);
-      }
+      const newClient = Client.forTestnet();
+      newClient.setOperator(
+        import.meta.env.VITE_HEDERA_ACCOUNT_ID,
+        import.meta.env.VITE_HEDERA_PRIVATE_KEY
+      );
+      setClient(newClient);
     };
 
     initClient();
