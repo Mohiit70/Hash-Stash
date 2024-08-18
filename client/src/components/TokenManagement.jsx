@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHederaContext } from '../contexts/HederaContext'; // Correct import
+import { useHederaContext } from '../contexts/HederaContext';
 import { TokenCreateTransaction, TokenInfoQuery, AccountBalanceQuery } from '@hashgraph/sdk';
 
 function TokenManagement() {

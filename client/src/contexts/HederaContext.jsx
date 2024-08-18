@@ -11,8 +11,8 @@ export function HederaProvider({ children }) {
       try {
         const newClient = Client.forTestnet();
         newClient.setOperator(
-          process.env.REACT_APP_HEDERA_ACCOUNT_ID,
-          process.env.REACT_APP_HEDERA_PRIVATE_KEY
+          import.meta.env.VITE_HEDERA_ACCOUNT_ID,
+          import.meta.env.VITE_HEDERA_PRIVATE_KEY
         );
         setClient(newClient);
       } catch (error) {

@@ -1,0 +1,40 @@
+.file-storage {
+    background-color: #2d3748;
+    border-radius: 8px;
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .file-upload-container {
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+  }
+  
+  .file-input {
+    display: none;
+  }
+  
+  .file-label {
+    background-color: #4a5568;
+    color: #e2e8f0;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 1rem;
+  }
+  
+  .upload-button {
+    background-color: #63b3ed;
+    color: #1a202c;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .upload-button:hover {
+    background-color: #4299e1;
+  }
+  

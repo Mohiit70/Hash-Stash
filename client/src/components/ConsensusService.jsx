@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHederaContext } from '../contexts/HederaContext'; // Correct import
+import { useHederaContext } from '../contexts/HederaContext';
 
 function ConsensusService() {
   const { client } = useHederaContext();
