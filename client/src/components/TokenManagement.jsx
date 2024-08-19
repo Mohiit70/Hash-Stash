@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useHederaContext } from '../contexts/HederaContext';
-import { TokenCreateTransaction, TokenInfoQuery, AccountBalanceQuery } from '@hashgraph/sdk';
+import { TokenCreateTransaction, TokenInfoQuery } from '@hashgraph/sdk';
+import '../style/TokenManagement.css';
 
 function TokenManagement() {
   const { client } = useHederaContext();
@@ -46,28 +47,30 @@ function TokenManagement() {
   };
 
   return (
-    <div>
+    <div className="token-management">
       <h2>Token Management</h2>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <form onSubmit={handleCreateToken}>
+      <form className="token-form" onSubmit={handleCreateToken}>
         <input
+          className="token-input"
           type="text"
           placeholder="Token Name"
           value={tokenName}
           onChange={(e) => setTokenName(e.target.value)}
         />
         <input
+          className="token-input"
           type="text"
           placeholder="Token Symbol"
           value={tokenSymbol}
           onChange={(e) => setTokenSymbol(e.target.value)}
         />
-        <button type="submit">Create Token</button>
+        <button className="create-token-button" type="submit">Create Token</button>
       </form>
       {tokenId && (
         <div>
           <p>Token ID: {tokenId}</p>
-          <button onClick={handleGetTokenInfo}>Get Token Info</button>
+          <button className="create-token-button" onClick={handleGetTokenInfo}>Get Token Info</button>
         </div>
       )}
       {tokenInfo && (

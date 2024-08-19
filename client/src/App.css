@@ -3,7 +3,7 @@
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Inter', sans-serif;
+  font-family: '__GeistSans_3a0388', '__GeistSans_Fallback_3a0388', sans-serif;
   background-color: #111827;
 }
 
@@ -15,17 +15,26 @@ body {
 
 .content-container {
   flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 2rem;
+  margin-top: 60px; /* Adjust for the navbar height */
 }
 
-.white-container {
-  background-color: white;
-  border-radius: 8px;
-  padding: 3rem;
-  width: 100%;
-  max-width: 800px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* Custom cursor */
+body {
+  cursor: none;
+}
+
+.custom-cursor {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #3b82f6;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  transition: all 0.1s ease;
+}
+
+.custom-cursor.hover {
+  transform: scale(1.5);
+  background-color: rgba(59, 130, 246, 0.2);
 }

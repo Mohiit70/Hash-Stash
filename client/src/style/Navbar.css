@@ -1,15 +1,23 @@
 .navbar {
-  background-color: #1f2937;
-  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  background-color: rgba(17, 24, 39, 0.8);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  z-index: 1000;
 }
 
 .navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 100%;
   padding: 0 2rem;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 .logo {
@@ -20,19 +28,62 @@
 }
 
 .nav-links {
-  list-style-type: none;
   display: flex;
-  gap: 2rem;
-  margin: 0;
+  list-style-type: none;
   padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  margin-left: 1.5rem;
 }
 
 .nav-links a {
   color: #e5e7eb;
   text-decoration: none;
   transition: color 0.3s ease;
+  font-family: '__GeistSans_3a0388', '__GeistSans_Fallback_3a0388', sans-serif;
+  font-size: 16px;
+  white-space: nowrap;
 }
 
 .nav-links a:hover {
   color: #3b82f6;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #e5e7eb;
+  font-size: 1.2rem;
+  transition: color 0.3s ease;
+  margin-left: 1.5rem;
+}
+
+.theme-toggle:hover {
+  color: #3b82f6;
+}
+
+@media (max-width: 1024px) {
+  .navbar-container {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+
+  .nav-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  .nav-links li {
+    margin: 0 0.75rem;
+  }
+
+  .theme-toggle {
+    order: 2;
+  }
 }

@@ -1,12 +1,25 @@
 .landing-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+  padding: 2rem;
+  background-color: #111827;
+  color: #ffffff;
+}
+
+.content {
+  max-width: 800px;
+  width: 100%;
+  padding: 0 1rem;
 }
 
 .title {
-  font-size: 2.5rem;
+  font-size: 4rem;
   font-weight: bold;
   margin-bottom: 1rem;
-  color: #111827;
+  line-height: 1.2;
 }
 
 .highlight {
@@ -15,12 +28,9 @@
 }
 
 .description {
-  font-size: 1rem;
-  color: #4b5563;
+  font-size: 1.25rem;
   margin-bottom: 2rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+  color: #9ca3af;
 }
 
 .button-container {
@@ -34,7 +44,7 @@
   border-radius: 0.375rem;
   font-weight: 600;
   text-decoration: none;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .primary {
@@ -44,13 +54,16 @@
 
 .primary:hover {
   background-color: #2563eb;
+  transform: translateY(-2px);
 }
 
 .secondary {
-  background-color: #e0e7ff;
+  background-color: transparent;
   color: #3b82f6;
+  border: 2px solid #3b82f6;
 }
 
 .secondary:hover {
-  background-color: #c7d2fe;
+  background-color: rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHederaContext } from '../contexts/HederaContext';
+import '../style/ConsensusService.css';
 
 function ConsensusService() {
   const { client } = useHederaContext();
@@ -42,21 +43,22 @@ function ConsensusService() {
   };
 
   return (
-    <div>
+    <div className="consensus-service">
       <h2>Consensus Service</h2>
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      <button onClick={handleCreateTopic}>Create Topic</button>
+      {error && <p className="error-message">{error}</p>}
+      <button className="create-topic-button" onClick={handleCreateTopic}>Create Topic</button>
       {topicId && (
-        <div>
+        <div className="topic-section">
           <p>Topic ID: {topicId}</p>
-          <form onSubmit={handleSubmitMessage}>
+          <form className="message-form" onSubmit={handleSubmitMessage}>
             <input
+              className="message-input"
               type="text"
               placeholder="Enter message"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             />
-            <button type="submit">Submit Message</button>
+            <button className="submit-message-button" type="submit">Submit Message</button>
           </form>
         </div>
       )}
