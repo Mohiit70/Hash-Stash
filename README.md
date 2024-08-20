@@ -1,7 +1,7 @@
 # Hash Stash - Decentralized File Storage on Hedera Hashgraph 🚀
 
 <p align="center">
-  <img src="../Hash-Stash/client/img/Logo.png" alt="Hash Stash Logo" width="200" />
+  <img src="../client/img/Logo.png" alt="Hash Stash Logo" width="200" />
 </p>
 
 ## Overview
@@ -56,10 +56,10 @@ We are currently running Hash Stash on the Hedera testnet. This allows you to ex
 Here are some screenshots of the Hash Stash application:
 
 <p align="center">
-  <img src="../Hash-Stash/client/img/landing page.png" alt="Screenshot 1" width="600" />
-  <img src="../Hash-Stash/client/img/file storage.png" alt="Screenshot 2" width="600" />
-  <img src="../Hash-Stash/client/img/Consensus Service.png" alt="Screenshot 3" width="600" />
-  <img src="../Hash-Stash/client/img/Token Managemen.png" alt="Screenshot 4" width="600" />
+  <img src="../client/img/landing page.png" alt="Screenshot 1" width="600" />
+  <img src="../client/img/file storage.png" alt="Screenshot 2" width="600" />
+  <img src="../client/img/Consensus Service.png" alt="Screenshot 3" width="600" />
+  <img src="../Hclient/img/Token Managemen.png" alt="Screenshot 4" width="600" />
 </p>
 
 ## Feedback and Contributions
