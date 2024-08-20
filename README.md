@@ -1,7 +1,7 @@
 # Hash Stash - Decentralized File Storage on Hedera Hashgraph 🚀
 
 <p align="center">
-  <img src="../client/img/Logo.png" alt="Hash Stash Logo" width="200" />
+  <img src="https://github.com/Mohiit70/Hash-Stash/blob/main/client/img/Logo.png?raw=true" alt="Hash Stash Logo" width="200" />
 </p>
 
 ## Overview
@@ -57,9 +57,9 @@ Here are some screenshots of the Hash Stash application:
 
 <p align="center">
   <img src="https://github.com/Mohiit70/Hash-Stash/blob/main/client/img/landing%20page.png?raw=true" alt="Screenshot 1" width="600" />
-  <img src="../client/img/file storage.png" alt="Screenshot 2" width="600" />
-  <img src="../client/img/Consensus Service.png" alt="Screenshot 3" width="600" />
-  <img src="../Hclient/img/Token Managemen.png" alt="Screenshot 4" width="600" />
+  <img src="https://github.com/Mohiit70/Hash-Stash/blob/main/client/img/file%20storage.png?raw=true" alt="Screenshot 2" width="600" />
+  <img src="https://github.com/Mohiit70/Hash-Stash/blob/main/client/img/Token%20Managemen.png?raw=true" alt="Screenshot 3" width="600" />
+  <img src="https://github.com/Mohiit70/Hash-Stash/blob/main/client/img/Token%20Managemen.png?raw=true" alt="Screenshot 4" width="600" />
 </p>
 
 ## Feedback and Contributions
