@@ -24,8 +24,6 @@ Hash Stash integrates Hedera's hashgraph, a next-generation distributed ledger t
 - **Frontend**: React, HTML, CSS
 - **Backend**: Node.js, Express
 - **Blockchain**: Hedera Hashgraph
-- **Database**: (Specify if applicable)
-- **Other**: (Specify if applicable)
 
 ## Getting Started
 To get started with Hash Stash, follow these steps:
