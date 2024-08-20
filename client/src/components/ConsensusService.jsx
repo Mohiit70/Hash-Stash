@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHederaContext } from '../contexts/HederaContext';
+import { TopicCreateTransaction, TopicMessageSubmitTransaction } from '@hashgraph/sdk';
 import '../style/ConsensusService.css';
 
 function ConsensusService() {
@@ -9,22 +10,30 @@ function ConsensusService() {
   const [error, setError] = useState(null);
 
   const handleCreateTopic = async () => {
-    if (!client) return;
+    if (!client) {
+      setError('Hedera client is not initialized');
+      return;
+    }
 
     try {
       const transaction = await new TopicCreateTransaction().freezeWith(client);
-      const txResponse = await transaction.execute(client);
+      const signTx = await transaction.sign(client.operatorKey);
+      const txResponse = await signTx.execute(client);
       const receipt = await txResponse.getReceipt(client);
       setTopicId(receipt.topicId.toString());
+      setError(null);
     } catch (error) {
-      setError('Error creating topic');
+      setError('Error creating topic: ' + error.message);
       console.error('Error creating topic:', error);
     }
   };
 
   const handleSubmitMessage = async (e) => {
     e.preventDefault();
-    if (!topicId || !message || !client) return;
+    if (!topicId || !message || !client) {
+      setError('Topic ID, message, or client is missing');
+      return;
+    }
 
     try {
       const transaction = await new TopicMessageSubmitTransaction()
@@ -32,12 +41,14 @@ function ConsensusService() {
         .setMessage(message)
         .freezeWith(client);
 
-      const txResponse = await transaction.execute(client);
+      const signTx = await transaction.sign(client.operatorKey);
+      const txResponse = await signTx.execute(client);
       await txResponse.getReceipt(client);
       setMessage('');
+      setError(null);
       console.log('Message submitted successfully');
     } catch (error) {
-      setError('Error submitting message');
+      setError('Error submitting message: ' + error.message);
       console.error('Error submitting message:', error);
     }
   };

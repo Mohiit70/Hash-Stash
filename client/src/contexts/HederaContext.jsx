@@ -1,23 +1,25 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Client } from '@hashgraph/sdk';
+import React, { createContext, useState, useEffect } from 'react';
+import { Client, PrivateKey } from "@hashgraph/sdk";
 
-const HederaContext = createContext();
+export const HederaContext = createContext();
 
-export function HederaProvider({ children }) {
+export const HederaProvider = ({ children }) => {
   const [client, setClient] = useState(null);
 
   useEffect(() => {
     const initClient = async () => {
-      try {
-        const newClient = Client.forTestnet();
-        newClient.setOperator(
-          import.meta.env.VITE_HEDERA_ACCOUNT_ID,
-          import.meta.env.VITE_HEDERA_PRIVATE_KEY
-        );
-        setClient(newClient);
-      } catch (error) {
-        console.error('Error initializing Hedera client:', error);
+      if (!import.meta.env.VITE_HEDERA_ACCOUNT_ID || !import.meta.env.VITE_HEDERA_PRIVATE_KEY) {
+        console.error("Environment variables for Hedera are not set");
+        return;
       }
+
+      const accountId = import.meta.env.VITE_HEDERA_ACCOUNT_ID;
+      const privateKey = PrivateKey.fromString(import.meta.env.VITE_HEDERA_PRIVATE_KEY);
+
+      const newClient = Client.forTestnet();
+      newClient.setOperator(accountId, privateKey);
+
+      setClient(newClient);
     };
 
     initClient();
@@ -28,8 +30,6 @@ export function HederaProvider({ children }) {
       {children}
     </HederaContext.Provider>
   );
-}
+};
 
-export function useHederaContext() {
-  return useContext(HederaContext);
-}
+export const useHederaContext = () => React.useContext(HederaContext);

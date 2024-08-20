@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useHederaContext } from '../contexts/HederaContext';
+import { FileCreateTransaction, FileContentsQuery } from '@hashgraph/sdk';
 import '../style/FileStorage.css';
 
 function FileStorage() {
@@ -12,19 +13,23 @@ function FileStorage() {
 
   const handleFileUpload = async (e) => {
     e.preventDefault();
-    if (!file || !client) return;
+    if (!file || !client) {
+      setError('File or client is missing');
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
 
     try {
       const fileArrayBuffer = await file.arrayBuffer();
-      const transaction = new FileCreateTransaction()
+      const transaction = await new FileCreateTransaction()
         .setContents(new Uint8Array(fileArrayBuffer))
         .setKeys([client.publicKey])
         .freezeWith(client);
 
-      const txResponse = await transaction.execute(client);
+      const signTx = await transaction.sign(client.operatorKey);
+      const txResponse = await signTx.execute(client);
       const receipt = await txResponse.getReceipt(client);
       setFileId(receipt.fileId.toString());
     } catch (error) {
@@ -35,7 +40,10 @@ function FileStorage() {
   };
 
   const handleFileRetrieval = async () => {
-    if (!fileId || !client) return;
+    if (!fileId || !client) {
+      setError('File ID or client is missing');
+      return;
+    }
 
     setIsLoading(true);
     setError(null);
