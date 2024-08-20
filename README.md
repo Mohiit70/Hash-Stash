@@ -56,7 +56,7 @@ We are currently running Hash Stash on the Hedera testnet. This allows you to ex
 Here are some screenshots of the Hash Stash application:
 
 <p align="center">
-  <img src="../client/img/landing page.png" alt="Screenshot 1" width="600" />
+  <img src="https://github.com/Mohiit70/Hash-Stash/blob/main/client/img/landing%20page.png?raw=true" alt="Screenshot 1" width="600" />
   <img src="../client/img/file storage.png" alt="Screenshot 2" width="600" />
   <img src="../client/img/Consensus Service.png" alt="Screenshot 3" width="600" />
   <img src="../Hclient/img/Token Managemen.png" alt="Screenshot 4" width="600" />
